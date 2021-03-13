@@ -24,7 +24,7 @@ An example to run DPD-SIS for a simulated dataset from linear regression model:
 ``` r
 library(dpdSIS)
 
-## Additional Library Required
+## Additional packages Required
 library(MASS)
 library(parallel)
 library(doParallel)
