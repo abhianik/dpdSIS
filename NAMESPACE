@@ -1,1 +1,2 @@
 exportPattern("^[[:alpha:]]+")
+import(MASS, doParallel, parallel, sfsmisc)
