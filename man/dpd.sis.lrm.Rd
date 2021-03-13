@@ -35,6 +35,9 @@ SIS Vector. A d X 2 vector where the first column contains the variable index (r
 \description{
 Performs the Density Power Divergence based Robust Variable Screening (DPD-SIS) under a Linear Regression Model  y=X*beta + e, with e ~ N(0, sigma^2) for some unknown sigma, using parallel computation.
 }
+\details{
+Reference: Ghosh A, Thoresen M. A robust variable screening procedure for ultra-high dimensional data. arXiv preprint. 2021; arXiv:2004.14851.
+}
 \examples{
 \donttest{
 n <- 50; p <- 500;
