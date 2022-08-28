@@ -4,8 +4,7 @@ Title: Robust Variable Screening with DPD-SIS and DPD-CSIS
 Version: 1.0.0
 Author: Dr. Abhik Ghosh
 Maintainer: Dr. Abhik Ghosh <abhik.ghosh@isical.ac.in>
-Description: Robust Sure Independence Screening (SIS) and Conditional Screening (CSIS) using the Minimum Density Power Divergence (DPD) Estimators 
-under Generalized Linear Regression Models.
+Description: Robust Sure Independence Screening (SIS) and Conditional Screening (CSIS) using the Minimum Density Power Divergence (DPD) Estimators under Generalized Linear Regression Models.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
