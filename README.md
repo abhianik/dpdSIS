@@ -1,6 +1,6 @@
 # dpdSIS
-Robust Sure Independence Screening (SIS) using the Minimum Density Power Divergence (DPD) Estimators 
-(Ghosh and Thoresen, 2020; Ghosh et al., 2021)
+Robust Sure Independence Screening (DPD-SIS) and Conditional Screening (DPD-CSIS) using the Minimum Density Power Divergence (DPD) Estimators 
+(Ghosh and Thoresen, 2021; Ghosh et al., 2021)
 
 
 <!-- badges: start -->
@@ -16,10 +16,9 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("abhianik/dpdSIS")
 ```
 
-## Example
+## Examples: DPD-SIS and DPD-CSIS for a specified GLM
 
-An example to run DPD-SIS for a simulated dataset from linear regression model:
-
+You first need to load the following packages.
 
 ``` r
 library(dpdSIS)
@@ -30,55 +29,48 @@ library(parallel)
 library(doParallel)
 library(sfsmisc)
 
-## Simulate the data
-n=50;     # No. of observations
-p=5000;   # No. of variables
-beta = rep(0,p)
-beta[c(1:5)] = c(1,1,1,1,1); # True non-zero coefficients
-  
-d=floor(n/log(n))     # Required model size
-set.seed(rep1*1e2)
-
-Sigma = diag(p-1)
-#Sigma[Sigma==0]=0.5
-X = mvrnorm(n, mu=rep(0,p-1), Sigma=Sigma) # Simulate covariates
-X0 = cbind(1,X)
-
-Y = drop(X0 %*% beta + 2*rnorm(n))  # Simulate reponse
-    
-## add outliers in response
-epsilon=0.1                   # outlier proportion
-nout = ceiling(n*epsilon)     # outlier numbers
-Y[1:nout] = Y[1:nout] - 30    # adding outliers
-
-    
-## Run DPD-SIS Screening for a given alpha 
-  
-alpha=0.3
-SIS<-dpd.sis.lrm(d,Y,X0,alpha) 
 ```
 
-The function returns a matrix (SIS) of order d X 2, where the first column contains the ranked variable indeces (in decreasing order of abosolute values of the marginal slope) 
-and the second column contains the estimated marginal slopes of the corresponding variables. It returns the top d many variables in decreasing order of importance. 
 
-
-The following codes illustrate the compuation of different summary measures from the output (with d=p)
+Examples to run DPD-SIS given the response vector y and covariate matrix X (without intercept) for a given GLM. 
 
 ``` r
-I1=SIS0[(1:(n-1)),1]
-I2=SIS0[,1]
+n = length(y)          # No. of observations
+d = floor(n/log(n))     # Required model size
+alpha = 0.1             # DPD tuning parameter
 
-# True positives
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)   
+## Run DPD-SIS Screening for a given alpha and specified GLM
 
-# Indicator if the full model is correctly selected
-full=as.numeric(tp==4)                           
+SIS <- dpd.sis(d, y, X, alpha, reg='lrm')        # For Linear regression model (with known error variance equal to one)
+SIS <- dpd.sis(d, y, X, alpha, reg='logistic')   # For Logistic regression model
+SIS <- dpd.sis(d, y, X, alpha, reg='poisson')    # For Poisson regression model
 
-# Minimum model size (MMS) required to cover the correct model fully
-minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))  
+SIS <- dpd.sis.lrm(d, y, cbind(1, X), alpha)        # For Linear regression model with unknwon error variance
+
 ```
 
-## Comparison with the SIS and other existing robust SIS methods
+
+Examples to run DPD-CSIS given the response vector y and covariate matrix X (without intercept) for a given GLM, when a matrix of conditioning covarite is given as XC (shoudl include intercept) 
+
+``` r
+n = length(y)           # No. of observations
+d = floor(n/log(n))     # Required model size
+alpha = 0.1             # DPD tuning parameter
+
+## Run DPD-SIS Screening for a given alpha and specified GLM
+
+SIS <- dpd.sis(d, y, X, alpha, reg='lrm', XC)        # For Linear regression model
+SIS <- dpd.sis(d, y, X, alpha, reg='logistic', XC)   # For Logistic regression model
+SIS <- dpd.sis(d, y, X, alpha, reg='poisson', XC)    # For Poisson regression model
+
+```
+
+The function dpd.sis (and also dpd.sis.lrm) returns a matrix (SIS) of order d X 2, where the first column contains the ranked variable indeces (in decreasing order of abosolute values of the marginal slope) and the second column contains the estimated marginal slopes of the corresponding variables. It returns the top d many variables in decreasing order of importance. 
+
+
+## Comparison with the SIS and other existing robust SIS methods under Linear Regression Model 
+
+In the following the covarite matrix X0 should include the intercept variable as well, i.e., X0 = cbind(1, X)
 
   - Usual SIS: (Fan and Lv, 2008)
 
@@ -87,13 +79,11 @@ minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))
 ``` r
 library(SIS)
 
-SIS_usual<- SIS(X0, Y, family='gaussian', iter = FALSE, nsis=n-1)
+SIS_usual <- SIS(X0, y, family='gaussian', iter = FALSE, nsis=d)
 
+# Indices of screened variables are to be obtained as follows: 
 I1=SIS_usual$sis.ix0
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)
-full=as.numeric(tp==4)
-    
-    
+
 ```
 
   - Rank-SIS: (Li et al., 2012)
@@ -101,13 +91,9 @@ full=as.numeric(tp==4)
 <!-- end list -->
 
 ``` r
-SIS_rank<-rank.sis.lrm(p,Y,X0)
+SIS_rank <- rank.sis.lrm(d, y, X0)
 
-I1=SIS_rank[(1:(n-1)),1]
-I2=SIS_rank[,1]
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)   
-full=as.numeric(tp==4)                           
-minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))  
+# Output is of the same type as our dpd.sis
 ```
 
   - GK-SIS: (Gather and Guddat, 2008)
@@ -115,13 +101,9 @@ minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))
 <!-- end list -->
 
 ``` r
-SIS_GK<-GK.sis.lrm(p,Y,X0)
+SIS_GK <- GK.sis.lrm(d, y, X0)
 
-I1=SIS_GK[(1:(n-1)),1]
-I2=SIS_GK[,1]
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)   
-full=as.numeric(tp==4)                           
-minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))  
+# Output is of the same type as our dpd.sis
 ```
 
   - dCorr-SIS: (Wan et al., 2017)
@@ -131,13 +113,9 @@ minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))
 ``` r
 library(energy)
 
-SIS_dCor<-dcor.sis.lrm(p,Y,X0)
+SIS_dCor <- dcor.sis.lrm(d, y, X0)
 
-I1=SIS_dCor[(1:(n-1)),1]
-I2=SIS_dCor[,1]
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)   
-full=as.numeric(tp==4)                           
-minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))  
+# Output is of the same type as our dpd.sis
 ```
 
   - MCP-SIS: (Mu and Xiong, 2014)
@@ -145,13 +123,9 @@ minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))
 <!-- end list -->
 
 ``` r
-SIS_MCP<-MCP.sis.lrm(p,Y,X0)
+SIS_MCP <- MCP.sis.lrm(d, y, X0)
 
-I1=SIS_MCP[(1:(n-1)),1]
-I2=SIS_MCP[,1]
-TP=sum(I1==1)+sum(I1==2)+sum(I1==3)+sum(I1==4)   
-full=as.numeric(tp==4)                           
-minM=max(which(I2==1), which(I2==2), which(I2==3), which(I2==4))  
+# Output is of the same type as our dpd.sis
 ```
 
 
@@ -161,7 +135,7 @@ Fan J, Lv J. Sure independence screening for ultrahigh dimensional feature space
 
 Gather U, Guddat C. Comment on "Sure Independence Screening for Ultrahigh Dimensional Feature Space" by Fan, JQ and Lv, J. J Royal Stat Soc B. 2008; 70:893-895.
 
-Ghosh A, Thoresen M. A robust variable screening procedure for ultra-high dimensional data. arXiv preprint. 2021; arXiv:2004.14851.
+Ghosh A, Thoresen M. A robust variable screening procedure for ultra-high dimensional data. Stat Meth Med Res, 2021, 30(8), 1816–1832.
 
 Ghosh A, Ponzi E, Sandanger T,  Thoresen M. Robust Sure Independence Screening for Non-polynomial dimensional Generalized Linear Models. arXiv preprint 2021; arXiv:2005.12068v2.
 
