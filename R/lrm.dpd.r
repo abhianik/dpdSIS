@@ -26,7 +26,7 @@
 #' Y <- drop(X0 %*% beta + sigma*rnorm(n))
 #'
 #' alpha <- 0.3
-#' MDPDE<-lmdpd(Y,X0,alpha)
+#' MDPDE<-lmr.dpd(Y,X0,alpha)
 #' }
 #'
 #' @export
