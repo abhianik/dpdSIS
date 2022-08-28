@@ -57,7 +57,7 @@ est<-foreach(w=1:p,.combine=rbind,.packages = c("sfsmisc","MASS")) %dopar% {
   
   ldpd<-list(NA*init,0)
   tryCatch(
-  ldpd<-f(y,X1,alpha,Initial=init, Method),
+  ldpd<-f(y,X1,alpha,Method, Initial=init),
   error=function(e){print(e)}
   )
   paste(ldpd[[2]])
