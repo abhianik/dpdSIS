@@ -1,6 +1,6 @@
-#' MDPDE for Logistic Regression Model 
+#' MDPDE for Poisson Regression Model 
 #'
-#' Computes the robust Minimum Density Power Divergence Estimator (MDPDE) under a Logistic Regression Model 
+#' Computes the robust Minimum Density Power Divergence Estimator (MDPDE) under a Poisson Regression Model 
 #'
 #' Reference: Ghosh, A., & Basu, A. (2016). Robust estimation in generalized linear models: the density power divergence approach. Test, 25(2), 269-290.
 #'
@@ -23,10 +23,11 @@
 #' SigmaX <- diag(p-1);
 #' X <- mvrnorm(n, mu=rep(0,p-1), Sigma=SigmaX);
 #' X0 <- cbind(1,X)
-#' Y <- drop(X0 %*% beta + sigma*rnorm(n))
+#' z <- X0 %*% beta
+#' Y = rpois(n,exp(z)) 
 #'
 #' alpha <- 0.3
-#' MDPDE<-lmdpd(Y,X0,alpha)
+#' MDPDE<-poisson.dpd(Y,X,alpha)
 #' }
 #'
 #' @export
