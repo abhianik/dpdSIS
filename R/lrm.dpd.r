@@ -12,7 +12,7 @@
 #' @param Initial Vector. Initial values of the parameters for the estimation process (initial of sigma needs to be given via log(sigma)). Optional. Default is 1 for all slope parameters, median of y for intercept and MAD(y) for sigma.
 
 #' @return A List of two elements.
-#' The first list element is a [(p+1) X 1] vector containing the parameter estimates (last entry being estimate of sigma)
+#' The first list element is a [p X 1] vector containing the parameter estimates.
 #' The second list element is an indicator if the numerical optimization within the estimation process has converged: 0 == convergence. (Same as the convergence from 'optim' function of R)
 #'
 #'
