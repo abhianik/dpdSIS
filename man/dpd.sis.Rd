@@ -4,16 +4,7 @@
 \alias{dpd.sis}
 \title{DPD-SIS and DPD-CSIS under a Generalized Linear Model (GLM) with no variance parameter}
 \usage{
-dpd.sis(
-  d,
-  y,
-  X,
-  alpha,
-  reg = c("lrm", "logistic", "poisson"),
-  XC = matrix(rep(1, nrow(X))),
-  Initial = matrix(rep(1, ncol(X))),
-  Method = "L-BFGS-B"
-)
+dpd.sis(d, y, X,  alpha,  reg = c("lrm", "logistic", "poisson"),  XC = matrix(rep(1, nrow(X))), Initial = matrix(rep(1, ncol(X))), Method = "L-BFGS-B")
 }
 \arguments{
 \item{d}{Integer. A list of the data matrices. Number of features to be selected. (1<= d <=p)}
