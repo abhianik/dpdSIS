@@ -23,10 +23,11 @@
 #' SigmaX <- diag(p-1);
 #' X <- mvrnorm(n, mu=rep(0,p-1), Sigma=SigmaX);
 #' X0 <- cbind(1,X)
-#' Y <- drop(X0 %*% beta + sigma*rnorm(n))
+#' pr = 1/(1+exp(-(X0 %*% beta)))
+#' Y = rbinom(n,1,pr)
 #'
 #' alpha <- 0.3
-#' MDPDE<-lmdpd(Y,X0,alpha)
+#' MDPDE<-logistic.dpd(Y,X0,alpha)
 #' }
 #'
 #' @export
