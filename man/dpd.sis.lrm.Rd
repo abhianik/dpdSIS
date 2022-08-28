@@ -2,7 +2,7 @@
 % Please edit documentation in R/DPD_SIS_LRM.R
 \name{dpd.sis.lrm}
 \alias{dpd.sis.lrm}
-\title{DPD-SIS under a Linear Regression Model}
+\title{DPD-SIS under a Linear Regression Model with unknwon error variance}
 \usage{
 dpd.sis.lrm(
   d,
@@ -36,7 +36,7 @@ SIS Vector. A d X 2 vector where the first column contains the variable index (r
 Performs the Density Power Divergence based Robust Variable Screening (DPD-SIS) under a Linear Regression Model  y=X*beta + e, with e ~ N(0, sigma^2) for some unknown sigma, using parallel computation.
 }
 \details{
-Reference: Ghosh A, Thoresen M. A robust variable screening procedure for ultra-high dimensional data. arXiv preprint. 2021; arXiv:2004.14851.
+Reference: Ghosh, A. and Thoresen, M. (2021). A Robust Variable Screening procedure for Ultra-high dimensional data. Statistical Methods in Medical Research, 30(8), 1816–1832.
 }
 \examples{
 \donttest{
