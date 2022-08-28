@@ -1,7 +1,7 @@
 Package: dpdSIS
 Type: Package
 Title: Robust Variable Screening with DPD-SIS and DPD-CSIS
-Version: 0.1.0
+Version: 1.0.0
 Author: Abhik Ghosh
 Maintainer: The package maintainer <abhik.ghosh@isical.ac.in>
 Description: Robust Sure Independence Screening (SIS) and Conditional Screening (CSIS) using the Minimum Density Power Divergence (DPD) Estimators 
