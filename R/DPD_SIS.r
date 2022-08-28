@@ -8,7 +8,7 @@
 #' @param y Vector.   The response vector [n X 1].
 #' @param X Matrix. Covariate Matrix  [n X p]. It shoudl only include variables to be considered for screening. So, it should not contain the intercept or any conditioning variables. 
 #' @param alpha Numeric. The DPD tuning parameter (0<= alpha <=1)
-#' @param reg. A string indiacting the regression model. Possible options are  "lrm" (default), "logistic"  and "Poisson", indicating the linear regression (with unit error variance), logistic regression and poisson regression, respectively. 
+#' @param reg. A string indiacting the regression model. Possible options are  "lrm" (default), "logistic"  and "poisson", indicating the linear regression (with unit error variance), logistic regression and poisson regression, respectively. 
 #' @param X_C Matrix. Conditioning Covariate Matrix [n X q] in DPD-CSIS. Default: only the intercept variable (q=1). Optional for DPD-SIS.
 #' @param Initial Vector. Initial values of the marginal slope parameter for estimation process. Default: 1 for all parameters. Optional.
 #' @param Method String. Numerical optimization method to be used for computation of marginal slopes. Possible options are "L-BFGS-B","Nelder-Mead", "BFGS", "CG", which are the same as the input of 'optim' function in R. Optional. Default is "L-BFGS-B".
