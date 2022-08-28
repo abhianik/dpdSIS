@@ -27,7 +27,7 @@
 #' Y = rpois(n,exp(z)) 
 #'
 #' alpha <- 0.3
-#' MDPDE<-poisson.dpd(Y,X,alpha)
+#' MDPDE<-poisson.dpd(Y,X0,alpha)
 #' }
 #'
 #' @export
