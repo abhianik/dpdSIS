@@ -4,14 +4,7 @@
 \alias{poisson.dpd}
 \title{MDPDE for Poisson Regression Model}
 \usage{
-poisson.dpd(
-  y,
-  X,
-  alpha,
-  method = "L-BFGS-B",
-  p = ncol(X),
-  Initial = matrix(rep(1, p))
-)
+poisson.dpd(y, X, alpha, method = "L-BFGS-B", p = ncol(X), Initial = matrix(rep(1, p)))
 }
 \arguments{
 \item{y}{Vector.   The response vector [n X 1].}
@@ -45,7 +38,7 @@ SigmaX <- diag(p-1);
 X <- mvrnorm(n, mu=rep(0,p-1), Sigma=SigmaX);
 X0 <- cbind(1,X)
 z <- X0 \%*\% beta
-Y = rpois(n,exp(z)) 
+Y = rpois(n,exp(z))
 
 alpha <- 0.3
 MDPDE<-poisson.dpd(Y,X0,alpha)

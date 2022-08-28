@@ -4,15 +4,7 @@
 \alias{dpd.sis.lrm}
 \title{DPD-SIS under a Linear Regression Model with unknwon error variance}
 \usage{
-dpd.sis.lrm(
-  d,
-  y,
-  X,
-  alpha,
-  Method = "L-BFGS-B",
-  p = ncol(X),
-  Initial = matrix(rep(1, p))
-)
+dpd.sis.lrm(d, y, X, alpha, Method = "L-BFGS-B", p = ncol(X), Initial = matrix(rep(1, p)))
 }
 \arguments{
 \item{d}{Integer. A list of the data matrices. Number of features to be selected. (1<= d <=p)}

@@ -4,14 +4,7 @@
 \alias{lrm.dpd}
 \title{MDPDE for Linear Regression Model with knwon error variance (equal to one)}
 \usage{
-lrm.dpd(
-  y,
-  X,
-  alpha,
-  method = "L-BFGS-B",
-  p = ncol(X),
-  Initial = matrix(rep(1, p))
-)
+lrm.dpd(y, X, alpha, method = "L-BFGS-B", p = ncol(X), Initial = matrix(rep(1, p)))
 }
 \arguments{
 \item{y}{Vector.   The response vector [n X 1].}

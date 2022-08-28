@@ -4,14 +4,7 @@
 \alias{lmdpd}
 \title{MDPDE for Linear Regression Model}
 \usage{
-lmdpd(
-  y,
-  X,
-  alpha,
-  method = "L-BFGS-B",
-  p = ncol(X),
-  Initial = matrix(c(median(y), rep(1, p - 1), log(mad(y))))
-)
+lmdpd(y, X, alpha, method = "L-BFGS-B", p = ncol(X), Initial = matrix(c(median(y), rep(1, p - 1), log(mad(y)))))
 }
 \arguments{
 \item{y}{Vector.   The response vector [n X 1].}

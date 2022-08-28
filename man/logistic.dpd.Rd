@@ -4,14 +4,7 @@
 \alias{logistic.dpd}
 \title{MDPDE for Logistic Regression Model}
 \usage{
-logistic.dpd(
-  y,
-  X,
-  alpha,
-  method = "L-BFGS-B",
-  p = ncol(X),
-  Initial = matrix(rep(1, p))
-)
+logistic.dpd(y, X, alpha, method = "L-BFGS-B", p = ncol(X), Initial = matrix(rep(1, p)))
 }
 \arguments{
 \item{y}{Vector.   The response vector [n X 1].}
