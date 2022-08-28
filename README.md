@@ -67,24 +67,23 @@ SIS <- dpd.sis(d, y, X, alpha, reg='poisson', XC)    # For Poisson regression mo
 
 The function dpd.sis (and also dpd.sis.lrm) returns a matrix (SIS) of order d X 2, where the first column contains the ranked variable indeces (in decreasing order of abosolute values of the marginal slope) and the second column contains the estimated marginal slopes of the corresponding variables. It returns the top d many variables in decreasing order of importance. 
 
-
-## Comparison with the SIS and other existing robust SIS methods under Linear Regression Model 
-
-In the following the covarite matrix X0 should include the intercept variable as well, i.e., X0 = cbind(1, X)
-
-  - Usual SIS: (Fan and Lv, 2008)
-
-<!-- end list -->
+## The usual SIS methods (Fan and Lv, 2008)
 
 ``` r
 library(SIS)
 
+X0 = cbind(1, X)
 SIS_usual <- SIS(X0, y, family='gaussian', iter = FALSE, nsis=d)
 
 # Indices of screened variables are to be obtained as follows: 
 I1=SIS_usual$sis.ix0
 
 ```
+
+
+## Competitive existing robust SIS methods, available ONLY for Linear Regression Model!
+
+In the following, the covarite matrix X0 should include the intercept variable as well, i.e., X0 = cbind(1, X), and the output obtained in each case has the exact same structure as the output of dpd.sis or dpd.sis.lrm (for ease of comparison).
 
   - Rank-SIS: (Li et al., 2012)
 
@@ -93,7 +92,6 @@ I1=SIS_usual$sis.ix0
 ``` r
 SIS_rank <- rank.sis.lrm(d, y, X0)
 
-# Output is of the same type as our dpd.sis
 ```
 
   - GK-SIS: (Gather and Guddat, 2008)
@@ -103,7 +101,6 @@ SIS_rank <- rank.sis.lrm(d, y, X0)
 ``` r
 SIS_GK <- GK.sis.lrm(d, y, X0)
 
-# Output is of the same type as our dpd.sis
 ```
 
   - dCorr-SIS: (Wan et al., 2017)
@@ -115,7 +112,6 @@ library(energy)
 
 SIS_dCor <- dcor.sis.lrm(d, y, X0)
 
-# Output is of the same type as our dpd.sis
 ```
 
   - MCP-SIS: (Mu and Xiong, 2014)
@@ -125,7 +121,6 @@ SIS_dCor <- dcor.sis.lrm(d, y, X0)
 ``` r
 SIS_MCP <- MCP.sis.lrm(d, y, X0)
 
-# Output is of the same type as our dpd.sis
 ```
 
 
