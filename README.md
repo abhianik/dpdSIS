@@ -35,7 +35,7 @@ library(sfsmisc)
 Examples to run DPD-SIS given the response vector y and covariate matrix X (without intercept) for a given GLM. 
 
 ``` r
-n = length(y)          # No. of observations
+n = length(y)           # No. of observations
 d = floor(n/log(n))     # Required model size
 alpha = 0.1             # DPD tuning parameter
 
@@ -45,7 +45,7 @@ SIS <- dpd.sis(d, y, X, alpha, reg='lrm')        # For Linear regression model (
 SIS <- dpd.sis(d, y, X, alpha, reg='logistic')   # For Logistic regression model
 SIS <- dpd.sis(d, y, X, alpha, reg='poisson')    # For Poisson regression model
 
-SIS <- dpd.sis.lrm(d, y, cbind(1, X), alpha)        # For Linear regression model with unknwon error variance
+SIS <- dpd.sis.lrm(d, y, cbind(1, X), alpha)     # For Linear regression model with unknwon error variance
 
 ```
 
