@@ -50,7 +50,7 @@ SIS <- dpd.sis.lrm(d, y, cbind(1, X), alpha)        # For Linear regression mode
 ```
 
 
-Examples to run DPD-CSIS given the response vector y and covariate matrix X (without intercept) for a given GLM, when a matrix of conditioning covarite is given as XC (shoudl include intercept) 
+Examples to run DPD-CSIS given the response vector y and covariate matrix X (without intercept) for a given GLM, when a matrix of conditioning covarites is given as XC (should include intercept) 
 
 ``` r
 n = length(y)           # No. of observations
@@ -65,7 +65,7 @@ SIS <- dpd.sis(d, y, X, alpha, reg='poisson', XC)    # For Poisson regression mo
 
 ```
 
-The function dpd.sis (and also dpd.sis.lrm) returns a matrix (SIS) of order d X 2, where the first column contains the ranked variable indeces (in decreasing order of abosolute values of the marginal slope) and the second column contains the estimated marginal slopes of the corresponding variables. It returns the top d many variables in decreasing order of importance. 
+The function dpd.sis (and also dpd.sis.lrm) returns a matrix (SIS) of order d X 2, where the first column contains the ranked variable indices (in decreasing order of abosolute values of the marginal slope) and the second column contains the estimated marginal slopes of the corresponding variables. It returns the top d variables in decreasing order of importance. 
 
 ## The usual SIS methods (Fan and Lv, 2008)
 
@@ -83,7 +83,7 @@ I1=SIS_usual$sis.ix0
 
 ## Competitive existing robust SIS methods, available ONLY for Linear Regression Model!
 
-In the following, the covarite matrix X0 should include the intercept variable as well, i.e., X0 = cbind(1, X), and the output obtained in each case has the exact same structure as the output of dpd.sis or dpd.sis.lrm (for ease of comparison).
+In the following, the covariate matrix X0 should include the intercept variable as well, i.e., X0 = cbind(1, X), and the output obtained in each case has the exact same structure as the output of dpd.sis or dpd.sis.lrm (for ease of comparison).
 
   - Rank-SIS: (Li et al., 2012)
 
